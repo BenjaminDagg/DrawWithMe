@@ -4,10 +4,30 @@ import './App.css';
 
 class App extends Component {
 
-  componentDidMount() {
-    var socket = openSocket('https://draw-with-me-dagg.herokuapp.com:5000');
-    socket.emit('messsage', 'hello');
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      socket: openSocket('https://draw-with-me-dagg.herokuapp.com:5000')
+    };
+
+
+
+    this.subscribeToMessag = this.subscribeToMessag.bind(this);
+    this.subscribeToMessag((err,msg) => {
+      console.log(msg);
+    })
   }
+
+  componentDidMount() {
+
+  }
+
+  subscribeToMessage(cb) {
+    this.state.socket.on('message', msg => cb(null, msg));
+  }
+
+
 
   render() {
 

@@ -13,6 +13,8 @@ io.on('connection', (client) => {
     console.log('user connected');
     client.on('message', (msg) => {
         console.log(msg);
+
+        io.broadcast('message', msg);
     })
 });
 
