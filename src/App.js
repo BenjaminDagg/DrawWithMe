@@ -5,7 +5,7 @@ import './App.css';
 class App extends Component {
 
   componentDidMount() {
-    var socket = openSocket('http://localhost:5000');
+    var socket = openSocket('https://draw-with-me-dagg.herokuapp.com:5000');
   }
 
   render() {
@@ -21,3 +21,7 @@ class App extends Component {
 }
 
 export default App;
+
+
+//npm run build
+//npm start
