@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-
+    this.state.socket.emit('message', 'hello');
   }
 
   subscribeToMessage(cb) {
