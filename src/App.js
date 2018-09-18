@@ -6,6 +6,7 @@ class App extends Component {
 
   componentDidMount() {
     var socket = openSocket('https://draw-with-me-dagg.herokuapp.com:5000');
+    socket.emit('messsage', 'hello');
   }
 
   render() {

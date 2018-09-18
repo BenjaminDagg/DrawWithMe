@@ -11,6 +11,9 @@ const io = require('socket.io')();
 
 io.on('connection', (client) => {
     console.log('user connected');
+    client.on('message', (msg) => {
+        console.log(msg);
+    })
 });
 
 app.use( express.static( __dirname + `/build` ) );
