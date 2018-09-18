@@ -8,19 +8,20 @@ class App extends Component {
     super(props);
 
     this.state = {
-      socket: openSocket('https://draw-with-me-dagg.herokuapp.com:5000')
+      socket: openSocket('https://draw-with-me-dagg.herokuapp.com:5000'),
+      message: ""
     };
 
 
 
-    this.subscribeToMessag = this.subscribeToMessag.bind(this);
-    this.subscribeToMessag((err,msg) => {
+    this.subscribeToMessage = this.subscribeToMessage.bind(this);
+    this.subscribeToMessage((err,msg) => {
       console.log(msg);
     })
   }
 
   componentDidMount() {
-    this.state.socket.emit('message', 'hello');
+    this.state.socket.emit('message', 'this is a message');
   }
 
   subscribeToMessage(cb) {
@@ -35,7 +36,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>hello</h1>
+        <h1>{this.state.message}</h1>
       </div>
     );
   }
