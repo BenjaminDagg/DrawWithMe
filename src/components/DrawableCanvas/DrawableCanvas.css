@@ -1,8 +1,11 @@
 #drawing-canvas {
-    position: absolute;
-    top: 100px;
-    left: 0;
-    background-color: red;
+    position: relative;
     width: 100%;
-    height: 500px;
+    height: 100%
+}
+
+#canvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
 }

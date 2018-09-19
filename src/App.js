@@ -1,36 +1,12 @@
 import React, { Component } from 'react';
-import  openSocket  from 'socket.io-client';
-import { DrawableCanvas } from "./components/DrawableCanvas/DrawableCanvas";
+import { NavBar } from "./components/NavBar/NavBar";
 import './App.css';
+import { CanvasContainer } from "./components/CanvasContainer/CanvasContainer";
+import { Home } from "./components/Home/Home";
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 
 
 class App extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      socket: openSocket('http://localhost:5000'),
-      message: ""
-    };
-
-
-
-    this.subscribeToMessage = this.subscribeToMessage.bind(this);
-    this.subscribeToMessage((err,msg) => {
-      console.log(msg);
-      this.setState({message:msg});
-    })
-  }
-
-  componentDidMount() {
-    this.state.socket.emit('message', 'this is a message');
-  }
-
-  subscribeToMessage(cb) {
-    this.state.socket.on('message', msg => cb(null, msg));
-  }
-
 
 
   render() {
@@ -39,7 +15,13 @@ class App extends Component {
 
     return (
       <div className="App">
-        <DrawableCanvas/>
+        <NavBar/>
+        <Router>
+          <div>
+            <Route exact={true} path={"/"} render={() => <Home/>} />
+            <Route path="/room/:id/user/:username" component={CanvasContainer} />
+          </div>
+        </Router>
       </div>
     );
   }

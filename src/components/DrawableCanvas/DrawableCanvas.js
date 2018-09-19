@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./DrawableCanvas.css";
+import { Brushes } from "../../models/Brushes";
 
 const mouseYOffset = 100;
 
@@ -14,8 +15,8 @@ export class DrawableCanvas extends Component {
                 x: 0,
                 y: 0
             },
-            mouseIsDown: false,
-            drawingCoords: []   //holds all positions that have been clicked
+            mouseIsDown: false, //holds all positions that have been clicked,
+            drawings: []
         };
 
         this.onCanvasClick = this.onCanvasClick.bind(this);
@@ -23,6 +24,24 @@ export class DrawableCanvas extends Component {
         this.onCanvasClickUp = this.onCanvasClickUp.bind(this);
         this.updateCanvase = this.updateCanvase.bind(this);
         this.getMouseCoords = this.getMouseCoords.bind(this);
+        this.onDrawingRecievied = this.onDrawingRecievied.bind(this);
+
+        this.onDrawingRecievied((err,drawing) => {
+           if (err) {
+               return;
+           }
+           var drawings = this.state.drawings;
+           drawings.push(drawing);
+           this.setState({drawings:drawings}, () => {
+               this.updateCanvase(this.state.drawings);
+           });
+
+        });
+    }
+
+
+    onDrawingRecievied(callback) {
+        this.props.socket.on('drawing', drawing => callback(null, drawing));
     }
 
 
@@ -87,12 +106,25 @@ export class DrawableCanvas extends Component {
         //gets mouse coordinates relative to the canvas
         var mouseCoords = this.getMouseCoords(e);
 
-        //if mouse down when moving add new brush
-        var drawingCoords = this.state.drawingCoords;
+        var drawings = this.state.drawings;
         if (this.state.mouseIsDown) {
-            drawingCoords.push(mouseCoords);
-            this.setState({drawingCoords: drawingCoords});
-            this.updateCanvase(drawingCoords);
+
+            var newDrawing = {
+                coord: mouseCoords,
+                size: 10,
+                brush: Brushes.SQUARE
+            };
+            drawings.push(newDrawing);
+            this.setState({drawings: drawings});
+
+            this.updateCanvase(this.state.drawings);
+
+            var data = {
+                room: this.props.roomId,
+                drawing: newDrawing
+            };
+            this.props.socket.emit('drawing', data);
+
         }
 
         //update mouse coordinates
@@ -106,12 +138,17 @@ export class DrawableCanvas extends Component {
     clicked and draws the brush on each coordinate
      */
     updateCanvase(drawingCoords) {
+
+        if (!this.refs.canvas) {
+            return;
+        }
+
         const context = this.refs.canvas.getContext('2d');
         var canvas = document.getElementById("drawing-canvas");
         var rect = canvas.getBoundingClientRect();
 
         for (var i = 0; i < drawingCoords.length;i++) {
-            var coords = drawingCoords[i];
+            var coords = drawingCoords[i].coord;
             context.fillRect(coords.x,coords.y,10,10);
         }
     }
@@ -119,11 +156,11 @@ export class DrawableCanvas extends Component {
 
     render() {
 
+
+
         return (
-            <div className="canvas">
-                <h1>{this.state.mouse.x + " " + this.state.mouse.y}</h1>
-                {this.state.mouseIsDown == true && <h1>true</h1>}
-                {this.state.mouseIsDown == false && <h1>false</h1>}
+            <div id="canvas">
+
                 <canvas ref="canvas" onMouseUp={this.onCanvasClickUp} onMouseMove={this.onHover} onMouseDown={this.onCanvasClick} id="drawing-canvas"></canvas>
             </div>
         );

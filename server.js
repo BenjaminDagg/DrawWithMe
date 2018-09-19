@@ -10,11 +10,13 @@ app.use(cors());
 const io = require('socket.io')();
 
 io.on('connection', (client) => {
-    console.log('user connected');
-    client.on('message', (msg) => {
-        console.log(msg);
+    client.on('join_room', (newUser) => {
+        console.log(newUser.username + ' joined ' + newUser.roomId);
+        client.join(newUser.roomId);
+    });
+    client.on('drawing', data => {
 
-        io.emit('message', msg);
+        io.sockets.in(data.room).emit('drawing', data.drawing);
     });
 });
 
