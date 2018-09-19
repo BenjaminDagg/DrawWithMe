@@ -3,6 +3,7 @@ import { DrawableCanvas } from "../DrawableCanvas/DrawableCanvas";
 import "./CanvasContainer.css"
 import openSocket from "socket.io-client";
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { Chat } from "../Chat/Chat";
 
 const mouseYOffset = 100;
 
@@ -15,7 +16,11 @@ export class CanvasContainer extends Component {
         super(props);
 
         this.state = {
-            socket: openSocket(),
+            //for heroku deployment
+            //socket: openSocket(),
+
+            //for dev
+            socket: openSocket('http://localhost:5000'),
             roomId: null,
             username: null
         };
@@ -48,7 +53,9 @@ export class CanvasContainer extends Component {
             <div id="canvas-container">
                 <div id="canvas-target">
                     <DrawableCanvas roomId={this.state.roomId} socket={this.state.socket} />
+
                 </div>
+                <Chat username={this.state.username} roomId={this.state.roomId} socket={this.state.socket}/>
             </div>
         );
     }

@@ -1,13 +1,18 @@
 
 var express = require('express');
 var app = require('express')();
-var http = require('http').Server(app);
+
+//for deployment
+//var http = require('http').Server(app);
 
 var cors = require('cors');
 app.use(cors());
 
+//for deployment
+//const io = require('socket.io')(http);
 
-const io = require('socket.io')(http);
+//for dev
+const io = require('socket.io')();
 
 io.on('connection', (client) => {
     client.on('join_room', (newUser) => {
@@ -18,6 +23,9 @@ io.on('connection', (client) => {
 
         io.sockets.in(data.room).emit('drawing', data.drawing);
     });
+    client.on('chat_message', (message) => {
+        io.sockets.in(message.room).emit('chat_message',message);
+    })
 });
 
 app.use( express.static( __dirname + `/build` ) );
@@ -27,7 +35,9 @@ app.get('*', (req, res)=>{
 });
 
 
+//for dev
+io.listen(5000);
+app.listen(process.env.PORT || 8080 ,() => console.log('server listening'));
 
-
-
-http.listen(process.env.PORT || 8080 ,() => console.log('server listening'));
+//for deployment
+//http.listen(process.env.PORT || 8080 ,() => console.log('server listening'));
