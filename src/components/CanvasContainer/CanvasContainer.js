@@ -15,7 +15,7 @@ export class CanvasContainer extends Component {
         super(props);
 
         this.state = {
-            socket: openSocket('https://draw-with-me-dagg.herokuapp.com:' + PORT),
+            socket: openSocket('https://draw-with-me-dagg.herokuapp.com:5000'),
             roomId: null,
             username: null
         };
