@@ -14,8 +14,8 @@ io.on('connection', (client) => {
     client.on('message', (msg) => {
         console.log(msg);
 
-        io.broadcast('message', msg);
-    })
+        io.emit('message', msg);
+    });
 });
 
 app.use( express.static( __dirname + `/build` ) );

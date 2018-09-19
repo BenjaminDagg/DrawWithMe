@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import  openSocket  from 'socket.io-client';
+import { DrawableCanvas } from "./components/DrawableCanvas/DrawableCanvas";
 import './App.css';
+
 
 class App extends Component {
 
@@ -8,7 +10,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      socket: openSocket('https://draw-with-me-dagg.herokuapp.com:5000'),
+      socket: openSocket('http://localhost:5000'),
       message: ""
     };
 
@@ -17,6 +19,7 @@ class App extends Component {
     this.subscribeToMessage = this.subscribeToMessage.bind(this);
     this.subscribeToMessage((err,msg) => {
       console.log(msg);
+      this.setState({message:msg});
     })
   }
 
@@ -36,7 +39,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>{this.state.message}</h1>
+        <DrawableCanvas/>
       </div>
     );
   }
