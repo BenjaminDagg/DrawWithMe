@@ -17,10 +17,10 @@ export class CanvasContainer extends Component {
 
         this.state = {
             //for heroku deployment
-            //socket: openSocket(),
+            socket: openSocket(),
 
             //for dev
-            socket: openSocket('http://localhost:5000'),
+            //socket: openSocket('http://localhost:5000'),
             roomId: null,
             username: null
         };

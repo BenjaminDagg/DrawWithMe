@@ -3,16 +3,16 @@ var express = require('express');
 var app = require('express')();
 
 //for deployment
-//var http = require('http').Server(app);
+var http = require('http').Server(app);
 
 var cors = require('cors');
 app.use(cors());
 
 //for deployment
-//const io = require('socket.io')(http);
+const io = require('socket.io')(http);
 
 //for dev
-const io = require('socket.io')();
+//const io = require('socket.io')();
 
 io.on('connection', (client) => {
     client.on('join_room', (newUser) => {
@@ -36,8 +36,8 @@ app.get('*', (req, res)=>{
 
 
 //for dev
-io.listen(5000);
-app.listen(process.env.PORT || 8080 ,() => console.log('server listening'));
+//io.listen(5000);
+//app.listen(process.env.PORT || 8080 ,() => console.log('server listening'));
 
 //for deployment
-//http.listen(process.env.PORT || 8080 ,() => console.log('server listening'));
+http.listen(process.env.PORT || 8080 ,() => console.log('server listening'));
