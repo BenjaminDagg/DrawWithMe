@@ -28,6 +28,6 @@ app.get('*', (req, res)=>{
 
 
 
-io.listen(5000);
+
 
 http.listen(process.env.PORT || 8080 ,() => console.log('server listening'));
