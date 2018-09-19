@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 
 const mouseYOffset = 100;
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 export class CanvasContainer extends Component {
 
@@ -15,7 +15,7 @@ export class CanvasContainer extends Component {
         super(props);
 
         this.state = {
-            socket: openSocket('https://draw-with-me-dagg.herokuapp.com:5000'),
+            socket: openSocket('https://draw-with-me-dagg.herokuapp.com:8080'),
             roomId: null,
             username: null
         };

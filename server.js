@@ -1,13 +1,13 @@
 
 var express = require('express');
 var app = require('express')();
-
+var http = require('http').Server(app);
 
 var cors = require('cors');
 app.use(cors());
 
 
-const io = require('socket.io')();
+const io = require('socket.io')(http);
 
 io.on('connection', (client) => {
     client.on('join_room', (newUser) => {
@@ -30,4 +30,4 @@ app.get('*', (req, res)=>{
 
 io.listen(5000);
 
-app.listen(process.env.PORT || 8080 ,() => console.log('server listening'));
+http.listen(process.env.PORT || 8080 ,() => console.log('server listening'));
