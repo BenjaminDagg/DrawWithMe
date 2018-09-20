@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import "./DrawableCanvas.css";
 import { Brushes } from "../../models/Brushes";
 
-const mouseYOffset = 100;
+const screenScaleX = 0.65;
+const screenScaleY = 0.7;
 
 export class DrawableCanvas extends Component {
 
@@ -16,7 +17,12 @@ export class DrawableCanvas extends Component {
                 y: 0
             },
             mouseIsDown: false, //holds all positions that have been clicked,
-            drawings: []
+            drawings: [],
+            window: {
+                width: window.innerWidth,
+                height:window.innerHeight
+            },
+            context: null
         };
 
         this.onCanvasClick = this.onCanvasClick.bind(this);
@@ -25,6 +31,17 @@ export class DrawableCanvas extends Component {
         this.updateCanvase = this.updateCanvase.bind(this);
         this.getMouseCoords = this.getMouseCoords.bind(this);
         this.onDrawingRecievied = this.onDrawingRecievied.bind(this);
+        this.resizeCanvas = this.resizeCanvas.bind(this);
+        this.initCanvas = this.initCanvas.bind(this);
+
+        var self = this;
+        var t = -1;
+
+        window.onresize = function(){
+            clearTimeout(t);
+            t = setTimeout(self.resizeCanvas, 1000);
+        };
+
 
         this.onDrawingRecievied((err,drawing) => {
            if (err) {
@@ -38,6 +55,48 @@ export class DrawableCanvas extends Component {
 
         });
     }
+
+
+    componentDidMount() {
+        this.initCanvas();
+        this.setState({context: this.refs.canvas.getContext('2d')});
+    }
+
+
+    resizeCanvas() {
+        if (!this.refs.canvas) {
+            return;
+        }
+
+        var context = this.state.context;
+        var canvas = document.getElementById("drawing-canvas");
+
+       //get new window dimentions
+        var winWidth = window.innerWidth;
+        var winHeight = window.innerHeight;
+
+        //scale canvas
+        canvas.width = Math.floor(winWidth * 0.65);
+        canvas.height = Math.floor(winHeight * 0.7);
+
+        //find percent that the screen was changed
+        var scaleX = (winWidth / this.state.window.width);
+        var scaleY = (winHeight / this.state.window.height);
+
+        context.scale(scaleX,scaleY);
+        this.updateCanvase(this.state.drawings);
+        this.setState({window: {
+            width: winWidth,
+                height:winHeight
+            }});
+        context.scale(-scaleX,-scaleY);
+
+        this.setState({context:context});
+
+
+
+    }
+
 
 
     onDrawingRecievied(callback) {
@@ -76,7 +135,7 @@ export class DrawableCanvas extends Component {
      */
     getMouseCoords(event) {
 
-        const context = this.refs.canvas.getContext('2d');
+        const context = this.state.context;
         var canvas = document.getElementById("drawing-canvas");
         var rect = canvas.getBoundingClientRect();
 
@@ -111,8 +170,8 @@ export class DrawableCanvas extends Component {
 
             var newDrawing = {
                 coord: mouseCoords,
-                size: 10,
-                brush: Brushes.SQUARE
+                size: this.props.brushSize,
+                brush: this.props.brush
             };
             drawings.push(newDrawing);
             this.setState({drawings: drawings});
@@ -143,14 +202,48 @@ export class DrawableCanvas extends Component {
             return;
         }
 
-        const context = this.refs.canvas.getContext('2d');
+
+
+        const context = this.state.context;
         var canvas = document.getElementById("drawing-canvas");
         var rect = canvas.getBoundingClientRect();
 
         for (var i = 0; i < drawingCoords.length;i++) {
+            /*
+
+
             var coords = drawingCoords[i].coord;
             context.fillRect(coords.x,coords.y,10,10);
+            */
+            var coords = drawingCoords[i].coord;
+            switch (drawingCoords[i].brush) {
+                case Brushes.SQUARE:
+                    context.fillRect(coords.x,coords.y,drawingCoords[i].size,drawingCoords[i].size);
+                    break;
+                default:
+                    context.beginPath();
+                    context.arc(coords.x,coords.y,drawingCoords[i].size,0,2 * Math.PI);
+                    context.fill();
+
+            }
         }
+        this.setState({context: context});
+    }
+
+
+    initCanvas() {
+        if (!this.refs.canvas) {
+            return;
+        }
+        console.log('in init canvas');
+        var winWidth = window.innerWidth;
+        var winHeight = window.innerHeight;
+
+        const context = this.state.context;
+        var canvas = this.refs.canvas;
+
+        canvas.width = Math.floor(winWidth * 0.65);
+        canvas.height = Math.floor(winHeight * 0.7);
     }
 
 
@@ -160,8 +253,8 @@ export class DrawableCanvas extends Component {
 
         return (
             <div id="canvas">
-
-                <canvas ref="canvas" onMouseUp={this.onCanvasClickUp} onMouseMove={this.onHover} onMouseDown={this.onCanvasClick} id="drawing-canvas"></canvas>
+                <h1>{this.state.mouse.x + " " + this.state.mouse.y}</h1>
+                <canvas  ref="canvas" onMouseUp={this.onCanvasClickUp} onMouseMove={this.onHover} onMouseDown={this.onCanvasClick} id="drawing-canvas"></canvas>
             </div>
         );
     }

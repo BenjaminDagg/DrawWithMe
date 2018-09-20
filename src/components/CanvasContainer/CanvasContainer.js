@@ -4,6 +4,8 @@ import "./CanvasContainer.css"
 import openSocket from "socket.io-client";
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import { Chat } from "../Chat/Chat";
+import { ToolBar } from "../ToolBar/ToolBar";
+import { Brushes } from "../../models/Brushes";
 
 const mouseYOffset = 100;
 
@@ -17,16 +19,18 @@ export class CanvasContainer extends Component {
 
         this.state = {
             //for heroku deployment
-            socket: openSocket(),
+            //socket: openSocket(),
 
             //for dev
-            //socket: openSocket('http://localhost:5000'),
+            socket: openSocket('http://localhost:5000'),
             roomId: null,
-            username: null
+            username: null,
+            brush: Brushes.SQUARE,
+            brushSize: 25
         };
 
-
-
+        this.onBrushSelected = this.onBrushSelected.bind(this);
+        this.onBrushSizeSelected = this.onBrushSizeSelected.bind(this);
 
     }
 
@@ -46,13 +50,37 @@ export class CanvasContainer extends Component {
     }
 
 
+    onBrushSelected(brushType) {
+
+        switch(brushType) {
+            case Brushes.SQUARE:
+                this.setState({brush:Brushes.SQUARE});
+                break;
+            case Brushes.CIRCLE:
+                this.setState({brush: Brushes.CIRCLE});
+                break;
+            default:
+                this.setState({brush:Brushes.SQUARE});
+
+        }
+    }
+
+    onBrushSizeSelected(newSize) {
+
+        console.log('in parent');
+        this.setState({brushSize: newSize});
+    }
+
 
     render() {
 
         return (
             <div id="canvas-container">
+                <div id="toolbar-container">
+                    <ToolBar onBrushSizeSelected={this.onBrushSizeSelected} brushSize={this.state.brushSize} brush={this.state.brush} onBrushSelected={this.onBrushSelected}/>
+                </div>
                 <div id="canvas-target">
-                    <DrawableCanvas roomId={this.state.roomId} socket={this.state.socket} />
+                    <DrawableCanvas brushSize={this.state.brushSize} brush={this.state.brush} roomId={this.state.roomId} socket={this.state.socket} />
 
                 </div>
                 <Chat username={this.state.username} roomId={this.state.roomId} socket={this.state.socket}/>

@@ -4,7 +4,6 @@
     height: 95%;
     left:0;
     top:0;
-    background-color:orange;
     overflow-y: auto;
 }
 
@@ -14,7 +13,7 @@
     height: 5%;
     left:0;
     bottom:0;
-    background-color:purple;
+
 }
 
 #chat-input {
