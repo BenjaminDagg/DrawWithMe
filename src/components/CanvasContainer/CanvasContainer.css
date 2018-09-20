@@ -25,6 +25,7 @@
     right: 0;
     bottom: 0px;
     border: 1px solid lightgrey;
+    z-index: 3;
 
 }
 
