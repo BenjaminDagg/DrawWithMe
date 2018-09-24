@@ -30,9 +30,20 @@ export class CanvasContainer extends Component {
             backgroundColor: '#ffffff'
         };
 
+        this.onBckColorRecievied = this.onBckColorRecievied.bind(this);
         this.onBrushSelected = this.onBrushSelected.bind(this);
         this.onBrushSizeSelected = this.onBrushSizeSelected.bind(this);
         this.onBackgroundColorChange = this.onBackgroundColorChange.bind(this);
+
+        this.onBckColorRecievied((err,data) => {
+            if (err) {
+
+                return;
+            }
+
+            this.setState({backgroundColor: data.color});
+
+        });
     }
 
 
@@ -68,13 +79,30 @@ export class CanvasContainer extends Component {
 
     onBrushSizeSelected(newSize) {
 
-        console.log('in parent');
         this.setState({brushSize: newSize});
     }
 
+
+    //callback in ToolBar to change the backgrounColor state
+    //and emit the new color to the room
     onBackgroundColorChange(newColor) {
 
+        //send message to socket that background changed
+        var data = {
+            room: this.state.roomId,
+            color: newColor
+        };
+        this.state.socket.emit('bck_change', data);
+
         this.setState({backgroundColor: newColor});
+    }
+
+
+    //callback on socket to listen for background-color changes
+    //socket listens for drawings
+    onBckColorRecievied(callback) {
+
+        this.state.socket.on('bck_change', data => callback(null, data));
     }
 
 

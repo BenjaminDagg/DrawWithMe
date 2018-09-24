@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9226e806-b90e-47fc-a964-90778b9a0009" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CanvasContainer/CanvasContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CanvasContainer/CanvasContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DrawableCanvas/DrawableCanvas.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DrawableCanvas/DrawableCanvas.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ToolBar/ToolBar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ToolBar/ToolBar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ToolBar/ToolBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ToolBar/ToolBar.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,7 +45,7 @@
         <counts>
           <entry key="css" value="3513" />
           <entry key="development" value="5" />
-          <entry key="js" value="18930" />
+          <entry key="js" value="20081" />
           <entry key="json" value="22" />
         </counts>
       </usages-collector>
@@ -55,7 +53,7 @@
         <counts>
           <entry key="CSS" value="3513" />
           <entry key="JSON" value="22" />
-          <entry key="JavaScript" value="18930" />
+          <entry key="JavaScript" value="20081" />
           <entry key="PLAIN_TEXT" value="5" />
         </counts>
       </usages-collector>
@@ -63,11 +61,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/DrawableCanvas/DrawableCanvas.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+            <state relative-caret-position="308">
+              <caret line="40" column="22" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -78,17 +76,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="425">
+              <caret line="37" column="7" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/CanvasContainer/CanvasContainer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="75" selection-start-line="75" selection-end-line="75" />
+            <state relative-caret-position="211">
+              <caret line="83" column="5" lean-forward="true" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -178,6 +176,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>context</find>
+      <find>console.</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -200,11 +199,11 @@
         <option value="$PROJECT_DIR$/src/components/DrawableCanvas/DrawableCanvas.css" />
         <option value="$PROJECT_DIR$/src/components/CanvasContainer/CanvasContainer.css" />
         <option value="$PROJECT_DIR$/src/components/Chat/Chat.css" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/src/components/ToolBar/ToolBar.css" />
-        <option value="$PROJECT_DIR$/src/components/CanvasContainer/CanvasContainer.js" />
         <option value="$PROJECT_DIR$/src/components/ToolBar/ToolBar.js" />
         <option value="$PROJECT_DIR$/src/components/DrawableCanvas/DrawableCanvas.js" />
+        <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/src/components/CanvasContainer/CanvasContainer.js" />
       </list>
     </option>
   </component>
@@ -225,8 +224,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="989" />
-    <option name="width" value="938" />
+    <option name="x" value="996" />
+    <option name="width" value="931" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -350,18 +349,18 @@
       <workItem from="1537254076180" duration="5457000" />
       <workItem from="1537309579772" duration="27435000" />
       <workItem from="1537397209948" duration="29137000" />
-      <workItem from="1537821106630" duration="3038000" />
+      <workItem from="1537821106630" duration="4495000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65067000" />
+    <option name="totallyTimeSpent" value="66524000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="989" y="0" width="938" height="1047" extended-state="0" />
+    <frame x="996" y="0" width="931" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27790433" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28013778" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -378,7 +377,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32968238" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32968238" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -497,13 +496,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/Brushes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -532,16 +524,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/CanvasContainer/CanvasContainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="75" selection-start-line="75" selection-end-line="75" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/ToolBar/ToolBar.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="343">
@@ -554,8 +536,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/DrawableCanvas/DrawableCanvas.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+        <state relative-caret-position="308">
+          <caret line="40" column="22" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="37" column="7" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/CanvasContainer/CanvasContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="83" column="5" lean-forward="true" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

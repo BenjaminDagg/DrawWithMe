@@ -14,18 +14,28 @@ app.use(cors());
 //for dev
 const io = require('socket.io')();
 
+//new socket connected to server
 io.on('connection', (client) => {
+
+    //client joined a specified room
     client.on('join_room', (newUser) => {
         console.log(newUser.username + ' joined ' + newUser.roomId);
         client.join(newUser.roomId);
     });
+    //client sent a new drawnig coordinate
     client.on('drawing', data => {
 
         io.sockets.in(data.room).emit('drawing', data.drawing);
     });
+    //client sent new chat message
     client.on('chat_message', (message) => {
         io.sockets.in(message.room).emit('chat_message',message);
     })
+    //client changed background color of screen
+    client.on('bck_change', (data) => {
+        console.log('on server got bck color');
+        io.sockets.in(data.room).emit('bck_change',data);
+    });
 });
 
 app.use( express.static( __dirname + `/build` ) );
