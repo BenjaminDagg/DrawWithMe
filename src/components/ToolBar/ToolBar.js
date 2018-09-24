@@ -16,6 +16,7 @@ export class ToolBar extends Component {
         this.filterClicked = this.filterClicked.bind(this);
         this.brushSizeChanged = this.brushSizeChanged.bind(this);
         this.onBckColorChange = this.onBckColorChange.bind(this);
+        this.onBrushColorChange = this.onBrushColorChange.bind(this);
     };
 
     componentDidMount() {
@@ -46,6 +47,10 @@ export class ToolBar extends Component {
         this.props.onBackgroundColorChange(event.target.value);
     }
 
+    onBrushColorChange(event) {
+        this.props.onBrushColorChange(event.target.value);
+    }
+
     render() {
 
         return (
@@ -66,6 +71,11 @@ export class ToolBar extends Component {
                 <div class="toolbar-item" id="bckPicker">
                     <span>Background Color</span><input value={this.props.backgroundColor} id="bckInput" type="color" onChange={this.onBckColorChange} />
                 </div>
+                <div class="toolbar-item" id="brushColorPicker">
+                    <span>Brush Color</span><input value={this.props.brushColor} id="brushColorInput" type="color"
+                                                        onChange={this.onBrushColorChange}/>
+                </div>
+
 
             </div>
         );

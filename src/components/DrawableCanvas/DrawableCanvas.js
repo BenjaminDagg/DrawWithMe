@@ -178,7 +178,8 @@ export class DrawableCanvas extends Component {
             var newDrawing = {
                 coord: mouseCoords,
                 size: this.props.brushSize,
-                brush: this.props.brush
+                brush: this.props.brush,
+                color: this.props.brushColor
             };
             drawings.push(newDrawing);
             this.setState({drawings: drawings},() => {
@@ -188,7 +189,7 @@ export class DrawableCanvas extends Component {
 
             var data = {
                 room: this.props.roomId,
-                drawing: newDrawing
+                drawing: newDrawing,
             };
             this.props.socket.emit('drawing', data);
 
@@ -227,10 +228,12 @@ export class DrawableCanvas extends Component {
 
             switch (drawingCoords[i].brush) {
                 case Brushes.SQUARE:
+                    context.fillStyle = drawingCoords[i].color;
                     context.fillRect(x,y,drawingCoords[i].size,drawingCoords[i].size);
                     break;
                 default:
                     context.beginPath();
+                    context.fillStyle = drawingCoords[i].color;
                     context.arc(x,y,drawingCoords[i].size,0,2 * Math.PI);
                     context.fill();
 

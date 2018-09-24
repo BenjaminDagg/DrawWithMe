@@ -27,9 +27,11 @@ export class CanvasContainer extends Component {
             username: null,
             brush: Brushes.SQUARE,
             brushSize: 25,
-            backgroundColor: '#ffffff'
+            backgroundColor: '#ffffff',
+            brushColor: '#000000'
         };
 
+        this.onBrushColorChange = this.onBrushColorChange.bind(this);
         this.onBckColorRecievied = this.onBckColorRecievied.bind(this);
         this.onBrushSelected = this.onBrushSelected.bind(this);
         this.onBrushSizeSelected = this.onBrushSizeSelected.bind(this);
@@ -106,18 +108,37 @@ export class CanvasContainer extends Component {
     }
 
 
+    onBrushColorChange(newColor) {
+        this.setState({brushColor: newColor});
+    }
+
+
     render() {
 
         return (
             <div id="canvas-container">
                 <div id="toolbar-container">
-                    <ToolBar backgroundColor={this.state.backgroundColor} onBackgroundColorChange={this.onBackgroundColorChange} onBrushSizeSelected={this.onBrushSizeSelected} brushSize={this.state.brushSize} brush={this.state.brush} onBrushSelected={this.onBrushSelected}/>
+                    <ToolBar brushColor={this.state.brushColor}
+                             backgroundColor={this.state.backgroundColor}
+                             onBackgroundColorChange={this.onBackgroundColorChange}
+                             onBrushSizeSelected={this.onBrushSizeSelected}
+                             brushSize={this.state.brushSize} brush={this.state.brush}
+                             onBrushSelected={this.onBrushSelected}
+                             onBrushColorChange={this.onBrushColorChange}
+                    />
                 </div>
                 <div id="canvas-target">
-                    <DrawableCanvas backgroundColor={this.state.backgroundColor} brushSize={this.state.brushSize} brush={this.state.brush} roomId={this.state.roomId} socket={this.state.socket} />
+                    <DrawableCanvas brushColor={this.state.brushColor}
+                                    backgroundColor={this.state.backgroundColor}
+                                    brushSize={this.state.brushSize}
+                                    brush={this.state.brush}
+                                    roomId={this.state.roomId}
+                                    socket={this.state.socket} />
 
                 </div>
-                <Chat username={this.state.username} roomId={this.state.roomId} socket={this.state.socket}/>
+                <Chat username={this.state.username}
+                      roomId={this.state.roomId}
+                      socket={this.state.socket}/>
             </div>
         );
     }

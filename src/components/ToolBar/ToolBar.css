@@ -92,3 +92,17 @@
     font-size: 12px;
 }
 
+#brushColorPicker {
+    width: 200px;
+}
+
+#brushColorPicker span {
+    font-size: 12px;
+}
+
+#brushColorInput {
+    width: 30px;
+    margin-left: 5px;
+    border: 1px solid lightgrey;
+}
+
