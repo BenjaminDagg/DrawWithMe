@@ -48,7 +48,7 @@ export class ToolBar extends Component {
                 <div class="dropdown" id="brush-dropdown" class="toolbar-item">
                     <button onClick={this.toggleBrush}  class="dropdown-btn" id="brush-btn">Brush</button>
                     {this.state.brushOpen &&
-                        <div className="dropdown-content" id="brush-content">
+                        <div class="dropdown-content" id="brush-content">
                             <button value={Brushes.SQUARE} onClick={this.filterClicked}>Square</button>
                             <button value={Brushes.CIRCLE} onClick={this.filterClicked}>Circle</button>
                         </div>
