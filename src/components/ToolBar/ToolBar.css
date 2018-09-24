@@ -2,7 +2,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: red;
+
 }
 
 
@@ -11,6 +11,10 @@
     position: relative;
     float: left;
     margin: 20px;
+
+}
+
+#brush-dropdown {
     width: 100px;
 }
 
@@ -54,7 +58,13 @@
 
 }
 
+#brush-size {
+    width: 100px;
+}
 
+#bckPicker {
+    width: 200px;
+}
 
 #brush-size-input {
     width: 30px;
@@ -69,6 +79,16 @@
     float: left;
     margin-right: 5px;
     margin-top: 10px;
+    font-size: 12px;
+}
+
+#bckInput {
+    width: 30px;
+    margin-left: 5px;
+    border: 1px solid lightgrey;
+}
+
+#bckPicker span {
     font-size: 12px;
 }
 

@@ -26,12 +26,13 @@ export class CanvasContainer extends Component {
             roomId: null,
             username: null,
             brush: Brushes.SQUARE,
-            brushSize: 25
+            brushSize: 25,
+            backgroundColor: '#ffffff'
         };
 
         this.onBrushSelected = this.onBrushSelected.bind(this);
         this.onBrushSizeSelected = this.onBrushSizeSelected.bind(this);
-
+        this.onBackgroundColorChange = this.onBackgroundColorChange.bind(this);
     }
 
 
@@ -71,16 +72,21 @@ export class CanvasContainer extends Component {
         this.setState({brushSize: newSize});
     }
 
+    onBackgroundColorChange(newColor) {
+
+        this.setState({backgroundColor: newColor});
+    }
+
 
     render() {
 
         return (
             <div id="canvas-container">
                 <div id="toolbar-container">
-                    <ToolBar onBrushSizeSelected={this.onBrushSizeSelected} brushSize={this.state.brushSize} brush={this.state.brush} onBrushSelected={this.onBrushSelected}/>
+                    <ToolBar backgroundColor={this.state.backgroundColor} onBackgroundColorChange={this.onBackgroundColorChange} onBrushSizeSelected={this.onBrushSizeSelected} brushSize={this.state.brushSize} brush={this.state.brush} onBrushSelected={this.onBrushSelected}/>
                 </div>
                 <div id="canvas-target">
-                    <DrawableCanvas brushSize={this.state.brushSize} brush={this.state.brush} roomId={this.state.roomId} socket={this.state.socket} />
+                    <DrawableCanvas backgroundColor={this.state.backgroundColor} brushSize={this.state.brushSize} brush={this.state.brush} roomId={this.state.roomId} socket={this.state.socket} />
 
                 </div>
                 <Chat username={this.state.username} roomId={this.state.roomId} socket={this.state.socket}/>

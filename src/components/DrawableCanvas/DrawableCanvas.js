@@ -30,9 +30,12 @@ export class DrawableCanvas extends Component {
         this.resizeCanvas = this.resizeCanvas.bind(this);
         this.initCanvas = this.initCanvas.bind(this);
 
-
+        //event triggered when user changes browser window size
         window.addEventListener('resize', this.resizeCanvas);
 
+
+        //callback when socket recieves a new drawing
+        //adds it to drawings then re-renders canvas
         this.onDrawingRecievied((err,drawing) => {
            if (err) {
                return;
@@ -47,12 +50,28 @@ export class DrawableCanvas extends Component {
     }
 
 
+    //on mount set size of canvas to windwo size
     componentDidMount() {
         this.initCanvas();
-
     }
 
 
+    //detect when background color and brush color props change
+    componentWillReceiveProps(nextProps) {
+
+        //update background color
+        if (nextProps.backgroundColor) {
+            if (this.refs.canvas) {
+                const context = this.refs.canvas.getContext('2d');
+                var canvas = document.getElementById("drawing-canvas");
+
+                canvas.style.backgroundColor = nextProps.backgroundColor;
+            }
+        }
+    }
+
+
+    //resizes canvas when the window size changes
     resizeCanvas() {
 
         var winWidth = window.innerWidth;
@@ -61,11 +80,10 @@ export class DrawableCanvas extends Component {
         canvas.width = winWidth * 0.65;
 
         this.updateCanvase(this.state.drawings);
-
     }
 
 
-
+    //socket listens for drawings
     onDrawingRecievied(callback) {
         this.props.socket.on('drawing', drawing => callback(null, drawing));
     }
@@ -222,6 +240,8 @@ export class DrawableCanvas extends Component {
     }
 
 
+    //initialized canvases original size
+    //by getting window size
     initCanvas() {
         if (!this.refs.canvas) {
             return;
@@ -235,6 +255,7 @@ export class DrawableCanvas extends Component {
 
         canvas.width = Math.floor(winWidth * 0.65);
         canvas.height = Math.floor(winHeight * 0.7);
+        canvas.backgroundColor = this.props.backgroundColor;
     }
 
 
@@ -246,7 +267,6 @@ export class DrawableCanvas extends Component {
 
         return (
             <div id="canvas">
-
                 <canvas  ref="canvas" onMouseUp={this.onCanvasClickUp} onMouseMove={this.onHover} onMouseDown={this.onCanvasClick} id="drawing-canvas"></canvas>
             </div>
         );
