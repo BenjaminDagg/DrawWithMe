@@ -204,8 +204,7 @@ export class DrawableCanvas extends Component {
                     context.fillRect(x,y,drawingCoords[i].size,drawingCoords[i].size);
                     break;
                 case Brushes.TEXT:
-                    console.log('drawing text');
-                    context.font = "30px Arial";
+                    context.font = drawingCoords[i].fontSize + "px Arial";
                     context.fillText(drawingCoords[i].text,x,y);
                     break;
                 default:
@@ -269,12 +268,19 @@ export class DrawableCanvas extends Component {
             coord: mouseCoords,
             size: this.props.brushSize,
             brush: Brushes.TEXT,
-            text: text
+            text: text,
+            fontSize: this.props.fontSize
         };
         drawings.push(newDrawing);
         this.setState({drawings: drawings},() => {
             this.updateCanvase(this.state.drawings);
         });
+
+        var data = {
+            room: this.props.roomId,
+            drawing: newDrawing
+        };
+        this.props.socket.emit('drawing', data);
 
     }
 

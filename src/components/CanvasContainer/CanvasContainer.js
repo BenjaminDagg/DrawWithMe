@@ -28,7 +28,8 @@ export class CanvasContainer extends Component {
             brush: Brushes.SQUARE,
             brushSize: 25,
             backgroundColor: '#ffffff',
-            brushColor: '#000000'
+            brushColor: '#000000',
+            fontSize: 30
         };
 
         this.onBrushColorChange = this.onBrushColorChange.bind(this);
@@ -37,6 +38,7 @@ export class CanvasContainer extends Component {
         this.onBrushSizeSelected = this.onBrushSizeSelected.bind(this);
         this.onBackgroundColorChange = this.onBackgroundColorChange.bind(this);
         this.textButtonWasClicked = this.textButtonWasClicked.bind(this);
+        this.onFontSizeChanged = this.onFontSizeChanged.bind(this);
 
         this.onBckColorRecievied((err,data) => {
             if (err) {
@@ -120,6 +122,11 @@ export class CanvasContainer extends Component {
     }
 
 
+    onFontSizeChanged(newValue) {
+        this.setState({fontSize:newValue});
+    }
+
+
     render() {
 
         return (
@@ -133,6 +140,8 @@ export class CanvasContainer extends Component {
                              onBrushSelected={this.onBrushSelected}
                              onBrushColorChange={this.onBrushColorChange}
                              textButtonWasClicked={this.textButtonWasClicked}
+                             fontSize={this.state.fontSize}
+                             onFontSizeChanged={this.onFontSizeChanged}
                     />
                 </div>
                 <div id="canvas-target">
@@ -142,7 +151,8 @@ export class CanvasContainer extends Component {
                                     brush={this.state.brush}
                                     roomId={this.state.roomId}
                                     socket={this.state.socket}
-                                    onBrushSelected={this.onBrushSelected}/>
+                                    onBrushSelected={this.onBrushSelected}
+                                    fontSize={this.state.fontSize}/>
 
                 </div>
                 <Chat username={this.state.username}

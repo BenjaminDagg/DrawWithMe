@@ -27,9 +27,9 @@
 }
 
 .dropdown-content {
-    z-index: 3;
+    z-index: 4;
     width: 100px;
-    height: 100px;
+    height: 50px;
 }
 
 
@@ -44,6 +44,7 @@
 #brush-content {
     position:absolute;
     top: 30px;
+
 }
 
 .dropdown-content button:hover {
@@ -54,7 +55,7 @@
     position: relative;
     display: inline-block;
     width: 100px;
-    z-index: 3;
+    z-index: 4;
 
 }
 
@@ -114,5 +115,17 @@
     margin-left: 5px;
     border: 1px solid lightgrey;
     float: left;
+}
+
+#textBrushBtn {
+    background-color: white;
+    border: 1px solid lightgrey;
+}
+
+#fontSizeInput {
+    width: 30px;
+    background-color:white;
+    border: 1px solid lightgrey;
+    margin-left: 5px;
 }
 

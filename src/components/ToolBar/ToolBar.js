@@ -18,6 +18,7 @@ export class ToolBar extends Component {
         this.onBckColorChange = this.onBckColorChange.bind(this);
         this.onBrushColorChange = this.onBrushColorChange.bind(this);
         this.textBtnClick = this.textBtnClick.bind(this);
+        this.onFontSizeChanged = this.onFontSizeChanged.bind(this);
     };
 
     componentDidMount() {
@@ -58,6 +59,17 @@ export class ToolBar extends Component {
         this.props.textButtonWasClicked();
     }
 
+
+    onFontSizeChanged(event) {
+        var value = event.target.value;
+
+        if (value < 1 || value > 30) {
+            value = 10;
+        }
+
+        this.props.onFontSizeChanged(value);
+    }
+
     render() {
 
         return (
@@ -83,7 +95,8 @@ export class ToolBar extends Component {
                                                         onChange={this.onBrushColorChange}/>
                 </div>
                 <div className="toolbar-item" id="textContainer">
-                    <button onClick={this.textBtnClick}> Text</button>
+                    <button id="textBrushBtn" onClick={this.textBtnClick}> Text Box <strong>A</strong></button>
+                    <input id="fontSizeInput" value={this.props.fontSize} onChange={this.onFontSizeChanged} type="number" />
                 </div>
 
 
