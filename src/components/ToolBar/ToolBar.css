@@ -1,8 +1,8 @@
 #toolBar {
-    position: relative;
+    position: absolute;
     width: 100%;
     height: 100%;
-
+    overflow-y: auto;
 }
 
 
@@ -16,6 +16,7 @@
 
 #brush-dropdown {
     width: 100px;
+
 }
 
 #brush-btn {
@@ -53,7 +54,6 @@
     position: relative;
     display: inline-block;
     width: 100px;
-    background-color:red;
     z-index: 3;
 
 }
@@ -63,7 +63,7 @@
 }
 
 #bckPicker {
-    width: 200px;
+    width: 150px;
 }
 
 #brush-size-input {
@@ -90,19 +90,29 @@
 
 #bckPicker span {
     font-size: 12px;
+    float: left;
+}
+
+
+
+#bckPicker input {
+
+    float: left;
 }
 
 #brushColorPicker {
-    width: 200px;
+    width: 125px;
 }
 
 #brushColorPicker span {
     font-size: 12px;
+    float: left;
 }
 
 #brushColorInput {
     width: 30px;
     margin-left: 5px;
     border: 1px solid lightgrey;
+    float: left;
 }
 

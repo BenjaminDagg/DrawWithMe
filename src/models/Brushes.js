@@ -1,4 +1,5 @@
 export const Brushes = {
     SQUARE: 'square',
-    CIRCLE: 'circle'
+    CIRCLE: 'circle',
+    TEXT: 'text'
 };

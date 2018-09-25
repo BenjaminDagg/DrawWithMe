@@ -17,7 +17,8 @@ export class DrawableCanvas extends Component {
                 y: 0
             },
             mouseIsDown: false, //holds all positions that have been clicked,
-            drawings: []
+            drawings: [],
+            showInput: false
 
         };
 
@@ -29,6 +30,10 @@ export class DrawableCanvas extends Component {
         this.onDrawingRecievied = this.onDrawingRecievied.bind(this);
         this.resizeCanvas = this.resizeCanvas.bind(this);
         this.initCanvas = this.initCanvas.bind(this);
+        this.containerClick = this.containerClick.bind(this);
+        this.createDrawing = this.createDrawing.bind(this);
+        this.onInputBlur = this.onInputBlur.bind(this);
+        this.createText = this.createText.bind(this);
 
         //event triggered when user changes browser window size
         window.addEventListener('resize', this.resizeCanvas);
@@ -110,26 +115,14 @@ export class DrawableCanvas extends Component {
         e.persist();
 
         var mouseCoords = this.getMouseCoords(e);
-        var drawings = this.state.drawings;
-        var newDrawing = {
-            coord: mouseCoords,
-            size: this.props.brushSize,
-            brush: this.props.brush
-        };
-        drawings.push(newDrawing);
-        this.setState({drawings: drawings},() => {
-            this.updateCanvase(this.state.drawings);
-        });
+
+        if (this.props.brush != Brushes.TEXT) {
+            this.createDrawing(mouseCoords);
+        }
 
 
-        var data = {
-            room: this.props.roomId,
-            drawing: newDrawing
-        };
-        this.props.socket.emit('drawing', data);
 
         this.setState({mouseIsDown:false});
-
     }
 
 
@@ -170,29 +163,8 @@ export class DrawableCanvas extends Component {
         var mouseCoords = this.getMouseCoords(e);
 
 
-
-
-
-        if (this.state.mouseIsDown) {
-            var drawings = this.state.drawings;
-            var newDrawing = {
-                coord: mouseCoords,
-                size: this.props.brushSize,
-                brush: this.props.brush,
-                color: this.props.brushColor
-            };
-            drawings.push(newDrawing);
-            this.setState({drawings: drawings},() => {
-                this.updateCanvase(this.state.drawings);
-            });
-
-
-            var data = {
-                room: this.props.roomId,
-                drawing: newDrawing,
-            };
-            this.props.socket.emit('drawing', data);
-
+        if (this.state.mouseIsDown && this.props.brush != Brushes.TEXT) {
+            this.createDrawing(mouseCoords);
         }
 
 
@@ -231,6 +203,11 @@ export class DrawableCanvas extends Component {
                     context.fillStyle = drawingCoords[i].color;
                     context.fillRect(x,y,drawingCoords[i].size,drawingCoords[i].size);
                     break;
+                case Brushes.TEXT:
+                    console.log('drawing text');
+                    context.font = "30px Arial";
+                    context.fillText(drawingCoords[i].text,x,y);
+                    break;
                 default:
                     context.beginPath();
                     context.fillStyle = drawingCoords[i].color;
@@ -262,6 +239,97 @@ export class DrawableCanvas extends Component {
     }
 
 
+    createDrawing(mouseCoords) {
+        var drawings = this.state.drawings;
+        var newDrawing = {
+            coord: mouseCoords,
+            size: this.props.brushSize,
+            brush: this.props.brush
+        };
+        drawings.push(newDrawing);
+        this.setState({drawings: drawings},() => {
+            this.updateCanvase(this.state.drawings);
+        });
+
+
+        var data = {
+            room: this.props.roomId,
+            drawing: newDrawing
+        };
+        this.props.socket.emit('drawing', data);
+
+
+    }
+
+
+    createText(mouseCoords,text) {
+        console.log('in create texzt');
+        var drawings = this.state.drawings;
+        var newDrawing = {
+            coord: mouseCoords,
+            size: this.props.brushSize,
+            brush: Brushes.TEXT,
+            text: text
+        };
+        drawings.push(newDrawing);
+        this.setState({drawings: drawings},() => {
+            this.updateCanvase(this.state.drawings);
+        });
+
+    }
+
+
+
+    containerClick(e) {
+        if (this.props.brush == Brushes.TEXT) {
+            var canvas = this.refs.canvas;
+            var rect = canvas.getBoundingClientRect();
+            var input = document.getElementById("textInput");
+
+
+            var x = e.clientX;
+            var y = e.clientY - rect.top;
+
+
+            input.style.left = x + 'px';
+            input.style.top = y + 'px';
+
+            input.style.display = 'block';
+
+            input.focus();
+        }
+    }
+
+
+    onInputBlur(event) {
+
+        var input = document.getElementById("textInput");
+        var canvas = this.refs.canvas;
+        var rect = canvas.getBoundingClientRect();
+
+        //convert screen coords to canvas coords
+        var left = parseInt(input.style.left.substring(0,input.style.left.length - 2));
+        var top = parseInt(input.style.top.substring(0,input.style.top.length - 2));
+
+        var x = left - rect.left;
+        var y = top;
+
+        x /= canvas.width;
+        y /= canvas.height;
+
+        var coords = {
+            x: x,
+            y: y
+        };
+        //render new text
+        this.createText(coords,input.value);
+
+        //hide input
+        input.value = "";
+        input.style.display = 'none';
+
+
+    }
 
 
     render() {
@@ -269,7 +337,8 @@ export class DrawableCanvas extends Component {
 
 
         return (
-            <div id="canvas">
+            <div onClick={this.containerClick} id="canvas">
+                <input onBlur={this.onInputBlur} ref="input" type="text" id="textInput" />
                 <canvas  ref="canvas" onMouseUp={this.onCanvasClickUp} onMouseMove={this.onHover} onMouseDown={this.onCanvasClick} id="drawing-canvas"></canvas>
             </div>
         );

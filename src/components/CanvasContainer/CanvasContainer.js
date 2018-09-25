@@ -36,6 +36,7 @@ export class CanvasContainer extends Component {
         this.onBrushSelected = this.onBrushSelected.bind(this);
         this.onBrushSizeSelected = this.onBrushSizeSelected.bind(this);
         this.onBackgroundColorChange = this.onBackgroundColorChange.bind(this);
+        this.textButtonWasClicked = this.textButtonWasClicked.bind(this);
 
         this.onBckColorRecievied((err,data) => {
             if (err) {
@@ -113,6 +114,12 @@ export class CanvasContainer extends Component {
     }
 
 
+    textButtonWasClicked() {
+        console.log('in parent changed brush');
+        this.setState({brush: Brushes.TEXT});
+    }
+
+
     render() {
 
         return (
@@ -125,6 +132,7 @@ export class CanvasContainer extends Component {
                              brushSize={this.state.brushSize} brush={this.state.brush}
                              onBrushSelected={this.onBrushSelected}
                              onBrushColorChange={this.onBrushColorChange}
+                             textButtonWasClicked={this.textButtonWasClicked}
                     />
                 </div>
                 <div id="canvas-target">
@@ -133,7 +141,8 @@ export class CanvasContainer extends Component {
                                     brushSize={this.state.brushSize}
                                     brush={this.state.brush}
                                     roomId={this.state.roomId}
-                                    socket={this.state.socket} />
+                                    socket={this.state.socket}
+                                    onBrushSelected={this.onBrushSelected}/>
 
                 </div>
                 <Chat username={this.state.username}
