@@ -71,15 +71,13 @@
     width: 30px;
     border: 1px solid lightgrey;
     position: relative;
-    float: left;
-    margin-top: 10px;
+    margin-left: 3px;
+
 }
 
 #brush-size span {
     position:relative;
-    float: left;
-    margin-right: 5px;
-    margin-top: 10px;
+
     font-size: 12px;
 }
 
@@ -127,5 +125,10 @@
     background-color:white;
     border: 1px solid lightgrey;
     margin-left: 5px;
+}
+
+#clearBtn {
+    background-color:white;
+    border:1px solid lightgrey;
 }
 

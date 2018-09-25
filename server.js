@@ -36,6 +36,11 @@ io.on('connection', (client) => {
         console.log('on server got bck color');
         io.sockets.in(data.room).emit('bck_change',data);
     });
+    client.on('clear_canvas', (data) => {
+
+        io.sockets.in(data.roomId).emit('clear_canvas',data);
+    });
+
 });
 
 app.use( express.static( __dirname + `/build` ) );

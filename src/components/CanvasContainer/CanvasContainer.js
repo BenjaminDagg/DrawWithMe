@@ -39,6 +39,8 @@ export class CanvasContainer extends Component {
         this.onBackgroundColorChange = this.onBackgroundColorChange.bind(this);
         this.textButtonWasClicked = this.textButtonWasClicked.bind(this);
         this.onFontSizeChanged = this.onFontSizeChanged.bind(this);
+        this.clearCanvas = this.clearCanvas.bind(this);
+
 
         this.onBckColorRecievied((err,data) => {
             if (err) {
@@ -49,6 +51,9 @@ export class CanvasContainer extends Component {
             this.setState({backgroundColor: data.color});
 
         });
+
+
+
     }
 
 
@@ -111,6 +116,9 @@ export class CanvasContainer extends Component {
     }
 
 
+
+
+
     onBrushColorChange(newColor) {
         this.setState({brushColor: newColor});
     }
@@ -124,6 +132,20 @@ export class CanvasContainer extends Component {
 
     onFontSizeChanged(newValue) {
         this.setState({fontSize:newValue});
+    }
+
+
+    clearCanvas() {
+        var clear = window.confirm("Erase the canvas?");
+        if (clear) {
+
+            console.log('clearing');
+            var data = {
+                roomId: this.state.roomId
+            };
+
+            this.state.socket.emit('clear_canvas',data);
+        }
     }
 
 
@@ -142,6 +164,7 @@ export class CanvasContainer extends Component {
                              textButtonWasClicked={this.textButtonWasClicked}
                              fontSize={this.state.fontSize}
                              onFontSizeChanged={this.onFontSizeChanged}
+                             clearCanvas={this.clearCanvas}
                     />
                 </div>
                 <div id="canvas-target">
@@ -152,7 +175,8 @@ export class CanvasContainer extends Component {
                                     roomId={this.state.roomId}
                                     socket={this.state.socket}
                                     onBrushSelected={this.onBrushSelected}
-                                    fontSize={this.state.fontSize}/>
+                                    fontSize={this.state.fontSize}
+                                    username={this.state.username}/>
 
                 </div>
                 <Chat username={this.state.username}

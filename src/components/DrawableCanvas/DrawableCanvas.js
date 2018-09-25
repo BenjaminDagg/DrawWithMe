@@ -34,6 +34,8 @@ export class DrawableCanvas extends Component {
         this.createDrawing = this.createDrawing.bind(this);
         this.onInputBlur = this.onInputBlur.bind(this);
         this.createText = this.createText.bind(this);
+        this.onClearCanvas = this.onClearCanvas.bind(this);
+
 
         //event triggered when user changes browser window size
         window.addEventListener('resize', this.resizeCanvas);
@@ -52,6 +54,25 @@ export class DrawableCanvas extends Component {
            });
 
         });
+
+
+        this.onClearCanvas((err,data) => {
+            if (err) {
+
+                return;
+            }
+
+            const context = this.refs.canvas.getContext('2d');
+            var canvas = document.getElementById("drawing-canvas");
+
+            context.clearRect(0,0,canvas.width,canvas.height);
+            this.setState({drawings: []}, () => {
+                this.updateCanvase(this.state.drawings);
+            })
+
+        });
+
+
     }
 
 
@@ -76,6 +97,12 @@ export class DrawableCanvas extends Component {
     }
 
 
+    //callbacl on socket to listen for clear canvas event
+    onClearCanvas(callback) {
+        this.props.socket.on('clear_canvas', data => callback(null,data));
+    }
+
+
     //resizes canvas when the window size changes
     resizeCanvas() {
 
@@ -92,6 +119,9 @@ export class DrawableCanvas extends Component {
     onDrawingRecievied(callback) {
         this.props.socket.on('drawing', drawing => callback(null, drawing));
     }
+
+
+
 
 
     /*
@@ -262,7 +292,7 @@ export class DrawableCanvas extends Component {
 
 
     createText(mouseCoords,text) {
-        console.log('in create texzt');
+
         var drawings = this.state.drawings;
         var newDrawing = {
             coord: mouseCoords,
@@ -303,6 +333,14 @@ export class DrawableCanvas extends Component {
             input.style.display = 'block';
 
             input.focus();
+
+            var data = {
+                x:x,
+                y:y,
+                username: this.props.username
+            };
+
+
         }
     }
 

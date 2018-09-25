@@ -98,6 +98,10 @@ export class ToolBar extends Component {
                     <button id="textBrushBtn" onClick={this.textBtnClick}> Text Box <strong>A</strong></button>
                     <input id="fontSizeInput" value={this.props.fontSize} onChange={this.onFontSizeChanged} type="number" />
                 </div>
+                <div className="toolbar-item" id="clearContainer">
+                    <button onClick={this.props.clearCanvas} id="clearBtn" >Clear Canvas</button>
+
+                </div>
 
 
             </div>
