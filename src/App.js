@@ -16,6 +16,7 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar/>
+          <hr />
         <Router>
           <div>
             <Route exact={true} path={"/"} render={() => <Home/>} />

@@ -46,29 +46,31 @@ export class Home extends Component {
 
         return (
             <div id="home">
-                <span>Give yourself a nickname:</span><input onChange={this.onNicknameChanged}  value={this.state.nickname} type="text" />
-                <br />
-                <h1>Create Room</h1>
-                <span>Name your room:</span><input onChange={this.onCreateRoomChanged} value={this.state.createRoomName} type="text" />
-                <br />
-                {this.state.createRoomName && this.state.nickname &&
-                    <Link to={"/room/" + this.state.createRoomName + "/user/" + this.state.nickname}>
-                        <button>Create</button>
-                    </Link>
-                }
-                <br />
+                <div id="form-container">
+                    <span class="input-label">Give yourself a nickname:</span><input class="home-input" onChange={this.onNicknameChanged}  value={this.state.nickname} type="text" />
+                    <br />
+                    <div class="form">
+                        <h3 class="title">Create Room</h3>
+                        <span class="input-label">Name your room:</span><input class="home-input" onChange={this.onCreateRoomChanged} value={this.state.createRoomName} type="text" />
 
-                <br />
-                <h1>Join Room</h1>
-                <span>Name of room:</span><input onChange={this.onRoomChanged} value={this.state.roomName} type="text" />
-                <br />
+                        {this.state.createRoomName && this.state.nickname &&
+                        <Link to={"/room/" + this.state.createRoomName + "/user/" + this.state.nickname}>
+                            <button  class="sbmt">Create</button>
+                        </Link>
+                        }
+                    </div>
+                    <div class="form">
+                        <h3 class="title">Join Room</h3>
+                        <span class="input-label">Name of room:</span><input class="home-input" onChange={this.onRoomChanged} value={this.state.roomName} type="text" />
 
-                <br />
-                {this.state.roomName && this.state.nickname &&
-                <Link to={"/room/" + this.state.roomName + "/user/" + this.state.nickname}>
-                    <button>Join</button>
-                </Link>
-                }
+                        {this.state.roomName && this.state.nickname &&
+                        <Link to={"/room/" + this.state.roomName + "/user/" + this.state.nickname}>
+                            <button class="sbmt">Join</button>
+                        </Link>
+                        }
+                    </div>
+
+                </div>
 
             </div>
         );

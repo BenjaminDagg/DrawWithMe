@@ -34,10 +34,12 @@ export class ToolBar extends Component {
 
 
     filterClicked(event) {
-        console.log('in filter clicked the brush was ' + event.target.value);
-        this.props.onBrushSelected(event.target.value);
 
-        if (event.target.value != Brushes.ERASER) {
+        var filter = event.target.value;
+
+        this.props.onBrushSelected(filter);
+
+        if (filter != Brushes.ERASER && filter != Brushes.TEXT) {
             this.toggleBrush();
         }
 
