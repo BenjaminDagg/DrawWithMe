@@ -278,7 +278,6 @@ export class DrawableCanvas extends Component {
                     context.fill();
                     break;
                 case Brushes.TEXT:
-
                     context.fillStyle = color;
                     context.font = drawingCoords[i].fontSize + "px Arial";
                     context.fillText(drawingCoords[i].text,x,y);
@@ -365,7 +364,8 @@ export class DrawableCanvas extends Component {
             size: this.props.brushSize,
             brush: Brushes.TEXT,
             text: text,
-            fontSize: this.props.fontSize
+            fontSize: this.props.fontSize,
+            color: '#000000'
         };
         drawings.push(newDrawing);
         this.setState({drawings: drawings});

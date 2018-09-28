@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9226e806-b90e-47fc-a964-90778b9a0009" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CanvasContainer/CanvasContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CanvasContainer/CanvasContainer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/DrawableCanvas/DrawableCanvas.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DrawableCanvas/DrawableCanvas.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ToolBar/ToolBar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ToolBar/ToolBar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ToolBar/ToolBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ToolBar/ToolBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/Brushes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Brushes.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,7 +46,7 @@
         <counts>
           <entry key="css" value="4088" />
           <entry key="development" value="5" />
-          <entry key="js" value="28311" />
+          <entry key="js" value="28320" />
           <entry key="json" value="22" />
         </counts>
       </usages-collector>
@@ -59,7 +54,7 @@
         <counts>
           <entry key="CSS" value="4088" />
           <entry key="JSON" value="22" />
-          <entry key="JavaScript" value="28311" />
+          <entry key="JavaScript" value="28320" />
           <entry key="PLAIN_TEXT" value="5" />
         </counts>
       </usages-collector>
@@ -70,8 +65,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/DrawableCanvas/DrawableCanvas.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="230" column="48" selection-start-line="230" selection-start-column="48" selection-end-line="230" selection-end-column="48" />
+            <state relative-caret-position="230">
+              <caret line="368" column="10" lean-forward="true" selection-start-line="368" selection-start-column="10" selection-end-line="368" selection-end-column="10" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -100,8 +95,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/CanvasContainer/CanvasContainer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-985">
-              <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="39" />
+            <state relative-caret-position="358">
+              <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="34" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -363,18 +358,18 @@
       <workItem from="1537397209948" duration="29137000" />
       <workItem from="1537821106630" duration="28869000" />
       <workItem from="1537850937531" duration="867000" />
-      <workItem from="1538130371456" duration="4958000" />
+      <workItem from="1538130371456" duration="5342000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96723000" />
+    <option name="totallyTimeSpent" value="97107000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="953" y="0" width="974" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23194748" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23194748" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -391,7 +386,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32968238" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32968238" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -555,8 +550,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/CanvasContainer/CanvasContainer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-985">
-          <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="39" />
+        <state relative-caret-position="358">
+          <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="34" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
@@ -565,8 +560,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/DrawableCanvas/DrawableCanvas.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="230" column="48" selection-start-line="230" selection-start-column="48" selection-end-line="230" selection-end-column="48" />
+        <state relative-caret-position="230">
+          <caret line="368" column="10" lean-forward="true" selection-start-line="368" selection-start-column="10" selection-end-line="368" selection-end-column="10" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
