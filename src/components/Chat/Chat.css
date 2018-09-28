@@ -28,7 +28,7 @@
     position:relative;
     width: 20%;
     height:100%;
-    float: right;
+    float: left;
 }
 
 .message-container {
@@ -36,5 +36,6 @@
     width:100%;
     left: 0;
     text-align: left;
-    background-color: blue;
+
 }
+

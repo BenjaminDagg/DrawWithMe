@@ -24,6 +24,12 @@ export class Chat extends Component {
             messages.push(message);
             this.setState({messages:messages});
 
+            //scroll div down
+            var messageDiv = document.getElementById("chat-messages");
+            if (messageDiv) {
+                messageDiv.scrollTop = messageDiv.scrollHeight - messageDiv.clientHeight;
+            }
+
         });
     }
 
@@ -59,6 +65,9 @@ export class Chat extends Component {
             room: this.props.roomId
         };
         this.props.socket.emit('chat_message', newMessage);
+
+        //reset message input
+        this.setState({message: ""});
     }
 
 
@@ -68,12 +77,23 @@ export class Chat extends Component {
 
 
     displayMessages() {
-        var list = this.state.messages.map((message) => {
-            return (
-                <div class="message-container">
-                    <span>{message.username + ": " + message.message}</span>
-                </div>
-            )
+        var list = this.state.messages.map((message, index) => {
+
+            if (index % 2 == 0) {
+                return (
+                    <div style={{'background-color':'lightgrey'}} class="message-container">
+                        <span class="chat-msg">{'[' + message.username + ']' + ": " + message.message}</span>
+                    </div>
+                )
+            }
+            else {
+                return (
+                    <div class="message-container">
+                        <span class="chat-msg">{'[' + message.username + ']' + ": " + message.message}</span>
+                    </div>
+                )
+            }
+
         });
 
         return list;
@@ -83,12 +103,7 @@ export class Chat extends Component {
 
         var messages = this.displayMessages();
 
-        //scroll div down
-        var messageDiv = document.getElementById("chat-messages");
-        if (messageDiv) {
-            messageDiv.scrollTop = messageDiv.scrollHeight - 100;
-            messageDiv.scrollIntoView(false);
-        }
+
 
 
         return (
