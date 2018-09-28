@@ -18,7 +18,8 @@ export class DrawableCanvas extends Component {
             },
             mouseIsDown: false, //holds all positions that have been clicked,
             drawings: [],
-            showInput: false
+            showInput: false,
+            backgroundColor: this.props.backgroundColor
 
         };
 
@@ -35,10 +36,13 @@ export class DrawableCanvas extends Component {
         this.onInputBlur = this.onInputBlur.bind(this);
         this.createText = this.createText.bind(this);
         this.onClearCanvas = this.onClearCanvas.bind(this);
+        this.onBckColorRecievied = this.onBckColorRecievied.bind(this);
 
 
         //event triggered when user changes browser window size
         window.addEventListener('resize', this.resizeCanvas);
+
+
 
 
         //callback when socket recieves a new drawing
@@ -73,6 +77,20 @@ export class DrawableCanvas extends Component {
         });
 
 
+        this.onBckColorRecievied((err,data) => {
+            if (err) {
+
+                return;
+            }
+            this.props.backgroundColorDidChange(data.color);
+            const context = this.refs.canvas.getContext('2d');
+            var canvas = document.getElementById("drawing-canvas");
+
+            this.setState({backgroundColor: data.color});
+            this.updateCanvase(this.state.drawings);
+        });
+
+
     }
 
 
@@ -92,6 +110,7 @@ export class DrawableCanvas extends Component {
                 var canvas = document.getElementById("drawing-canvas");
 
                 canvas.style.backgroundColor = nextProps.backgroundColor;
+                this.updateCanvase(this.state.drawings);
             }
         }
     }
@@ -100,6 +119,17 @@ export class DrawableCanvas extends Component {
     //callbacl on socket to listen for clear canvas event
     onClearCanvas(callback) {
         this.props.socket.on('clear_canvas', data => callback(null,data));
+    }
+
+
+    //callback on socket to listen for background-color changes
+    //socket listens for drawings
+    onBckColorRecievied(callback) {
+        var self = this;
+        this.props.socket.on('bck_change', data => {
+            callback(null, data);
+
+        });
     }
 
 
@@ -198,6 +228,7 @@ export class DrawableCanvas extends Component {
         }
 
 
+        this.updateCanvase(this.state.drawings);
 
         //update mouse coordinates
         this.setState({mouse:mouseCoords});
@@ -222,28 +253,57 @@ export class DrawableCanvas extends Component {
         var rect = canvas.getBoundingClientRect();
 
 
+
+        console.log('in render');
         for (var i = 0; i < drawingCoords.length;i++) {
 
+            context.lineWidth = 10;
+
+
             var coords = drawingCoords[i].coord;
-            var x = coords.x * canvas.width;
-            var y = coords.y * canvas.height;
+            var x = Math.floor(coords.x * canvas.width);
+            var y = Math.floor(coords.y * canvas.height);
+
+            var color = drawingCoords[i].color;
+            if(drawingCoords[i].brush == Brushes.ERASER) {
+                color = this.state.backgroundColor;
+            }
+
+
 
             switch (drawingCoords[i].brush) {
                 case Brushes.SQUARE:
-                    context.fillStyle = drawingCoords[i].color;
+                    context.fillStyle = color;
                     context.fillRect(x,y,drawingCoords[i].size,drawingCoords[i].size);
+                    context.fill();
                     break;
                 case Brushes.TEXT:
+
+                    context.fillStyle = color;
                     context.font = drawingCoords[i].fontSize + "px Arial";
                     context.fillText(drawingCoords[i].text,x,y);
+                    context.fill();
+                    break;
+                case Brushes.ERASER:
+                    context.beginPath();
+                    context.arc(x,y,drawingCoords[i].size,0,2 * Math.PI);
+                    context.fillStyle = color;
+                    context.fill();
+                    context.lineWidth = 5;
+                    context.strokeStyle = color;
+                    context.stroke();
+
+
+
                     break;
                 default:
                     context.beginPath();
-                    context.fillStyle = drawingCoords[i].color;
+                    context.fillStyle = color;
                     context.arc(x,y,drawingCoords[i].size,0,2 * Math.PI);
                     context.fill();
-
+                    context.closePath();
             }
+
         }
 
     }
@@ -269,23 +329,29 @@ export class DrawableCanvas extends Component {
 
 
     createDrawing(mouseCoords) {
+
         var drawings = this.state.drawings;
         var newDrawing = {
             coord: mouseCoords,
             size: this.props.brushSize,
-            brush: this.props.brush
+            brush: this.props.brush,
+            color: this.props.brushColor
         };
+        console.log('in create drawing brush = ' + newDrawing.brush);
         drawings.push(newDrawing);
-        this.setState({drawings: drawings},() => {
-            this.updateCanvase(this.state.drawings);
-        });
-
 
         var data = {
             room: this.props.roomId,
             drawing: newDrawing
         };
         this.props.socket.emit('drawing', data);
+
+        this.setState({drawings: drawings},() => {
+            this.updateCanvase(drawings);
+        });
+
+
+
 
 
     }
@@ -302,9 +368,7 @@ export class DrawableCanvas extends Component {
             fontSize: this.props.fontSize
         };
         drawings.push(newDrawing);
-        this.setState({drawings: drawings},() => {
-            this.updateCanvase(this.state.drawings);
-        });
+        this.setState({drawings: drawings});
 
         var data = {
             room: this.props.roomId,
@@ -346,7 +410,7 @@ export class DrawableCanvas extends Component {
 
 
     onInputBlur(event) {
-
+        console.log('in blue');
         var input = document.getElementById("textInput");
         var canvas = this.refs.canvas;
         var rect = canvas.getBoundingClientRect();

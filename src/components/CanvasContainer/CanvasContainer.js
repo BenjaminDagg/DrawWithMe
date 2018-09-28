@@ -33,24 +33,15 @@ export class CanvasContainer extends Component {
         };
 
         this.onBrushColorChange = this.onBrushColorChange.bind(this);
-        this.onBckColorRecievied = this.onBckColorRecievied.bind(this);
         this.onBrushSelected = this.onBrushSelected.bind(this);
         this.onBrushSizeSelected = this.onBrushSizeSelected.bind(this);
         this.onBackgroundColorChange = this.onBackgroundColorChange.bind(this);
         this.textButtonWasClicked = this.textButtonWasClicked.bind(this);
         this.onFontSizeChanged = this.onFontSizeChanged.bind(this);
         this.clearCanvas = this.clearCanvas.bind(this);
+        this.backgroundColorDidChange = this.backgroundColorDidChange.bind(this);
 
 
-        this.onBckColorRecievied((err,data) => {
-            if (err) {
-
-                return;
-            }
-
-            this.setState({backgroundColor: data.color});
-
-        });
 
 
 
@@ -73,13 +64,19 @@ export class CanvasContainer extends Component {
 
 
     onBrushSelected(brushType) {
-
+        console.log(' in parent brushtype = ' + brushType);
         switch(brushType) {
             case Brushes.SQUARE:
                 this.setState({brush:Brushes.SQUARE});
                 break;
             case Brushes.CIRCLE:
                 this.setState({brush: Brushes.CIRCLE});
+                break;
+            case Brushes.ERASER:
+                this.setState({brush: Brushes.ERASER});
+                break;
+            case Brushes.TEXT:
+                this.setState({brush: Brushes.TEXT});
                 break;
             default:
                 this.setState({brush:Brushes.SQUARE});
@@ -108,14 +105,10 @@ export class CanvasContainer extends Component {
     }
 
 
-    //callback on socket to listen for background-color changes
-    //socket listens for drawings
-    onBckColorRecievied(callback) {
+    backgroundColorDidChange(newColor) {
 
-        this.state.socket.on('bck_change', data => callback(null, data));
+        this.setState({backgroundColor: newColor});
     }
-
-
 
 
 
@@ -176,7 +169,10 @@ export class CanvasContainer extends Component {
                                     socket={this.state.socket}
                                     onBrushSelected={this.onBrushSelected}
                                     fontSize={this.state.fontSize}
-                                    username={this.state.username}/>
+                                    username={this.state.username}
+                                    onBackgroundColorChange={this.onBackgroundColorChange}
+                                    backgroundColorDidChange={this.backgroundColorDidChange}
+                    />
 
                 </div>
                 <Chat username={this.state.username}

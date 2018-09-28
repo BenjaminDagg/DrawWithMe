@@ -34,8 +34,13 @@ export class ToolBar extends Component {
 
 
     filterClicked(event) {
+        console.log('in filter clicked the brush was ' + event.target.value);
         this.props.onBrushSelected(event.target.value);
-        this.toggleBrush();
+
+        if (event.target.value != Brushes.ERASER) {
+            this.toggleBrush();
+        }
+
     }
 
 
@@ -95,11 +100,15 @@ export class ToolBar extends Component {
                                                         onChange={this.onBrushColorChange}/>
                 </div>
                 <div className="toolbar-item" id="textContainer">
-                    <button id="textBrushBtn" onClick={this.textBtnClick}> Text Box <strong>A</strong></button>
+                    <button id="textBrushBtn" value={Brushes.TEXT} onClick={this.filterClicked}> Text Box <strong>A</strong></button>
                     <input id="fontSizeInput" value={this.props.fontSize} onChange={this.onFontSizeChanged} type="number" />
                 </div>
                 <div className="toolbar-item" id="clearContainer">
                     <button onClick={this.props.clearCanvas} id="clearBtn" >Clear Canvas</button>
+
+                </div>
+                <div className="toolbar-item" id="eraserContainer">
+                    <button value={Brushes.ERASER} onClick={this.filterClicked} id="eraserBtn" >Eraser</button>
 
                 </div>
 
